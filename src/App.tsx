@@ -8,7 +8,7 @@ const App: React.FC = () => {
 
 
 const [isEdit, setIsEdit]=  React.useState(false);
-const [index, setIndex] = React.useState(0);
+const [index, setIndex] = React.useState(1);
   const [todo, setTodo] = React.useState<CardDto>({
     name: "",
     description: "",
@@ -17,7 +17,7 @@ const [index, setIndex] = React.useState(0);
   const [show, setShow] = React.useState(false);
   
  
-  const handleTodo = (type: "add" | "delete" | "update", ind?: number) => {
+  const handleTodo = (type: "add" | "delete" | "update", ind?: object) => {
     if (type === "add") {
       allTodo.push(todo);
       setTodo({
@@ -29,7 +29,7 @@ const [index, setIndex] = React.useState(0);
     }
     if (type === "delete") {
       let data = [...allTodo];
-      data.splice(ind as number, 1);
+      data.splice(index, 1);
       console.log(data);
       setAllTodo(data);
     }
@@ -104,13 +104,13 @@ const [index, setIndex] = React.useState(0);
           </Button>
         </Container>
       </Modal>
-      {allTodo.map(({ description, name }, ind) => {
+      {allTodo.map(({ description, name }, index) => {
         return (
-          <React.Fragment key={ind}>
+          <React.Fragment key={index}>
             <CustomCard
               name={name}
               description={description}
-              deleteHandler={() => handleTodo("delete", ind)}
+              deleteHandler={() => handleTodo("delete")}
               // edit={() => handleTodo("update", ind)}
 
               edit={() => {
@@ -118,7 +118,8 @@ const [index, setIndex] = React.useState(0);
                 setTodo(ind);
                 setShow(true);
                 setIndex(index);
-                setIsEdit(true)
+                setIsEdit(true);
+                
               }}
             />
           </React.Fragment>
