@@ -8,7 +8,7 @@ const App: React.FC = () => {
 
 
 const [isEdit, setIsEdit]=  React.useState(false);
-const [index, setIndex] = React.useState(1);
+const [index, setIndex] = React.useState(0);
   const [todo, setTodo] = React.useState<CardDto>({
     name: "",
     description: "",
@@ -34,7 +34,7 @@ const [index, setIndex] = React.useState(1);
       setAllTodo(data);
     }
     if (type === "update") {
-      let newData = {ind, name: todo.name, description: todo.description }
+      let newData = {...ind, name: todo.name, description: todo.description }
       setTodo(newData);
       let newTodo= allTodo.map(ind =>{
         if(allTodo.indexOf(ind) ===index){
@@ -49,11 +49,14 @@ const [index, setIndex] = React.useState(1);
   };
 
   const style = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4,
     position: "absolute" as "absolute",
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 600,
+    width: {xs: 300, md: 400},
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -63,7 +66,7 @@ const [index, setIndex] = React.useState(1);
   return (
     <Container component={"section"}>
       <Button
-        sx={{ marginTop: 9, m: "auto", width: "20%", display: "block" }}
+        sx={{ marginTop: 4, m: "auto", width: "20%", display: "block" }}
         variant="contained"
         onClick={() => setShow(!show)}
       >
